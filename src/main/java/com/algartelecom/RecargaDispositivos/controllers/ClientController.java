@@ -1,26 +1,24 @@
 package com.algartelecom.RecargaDispositivos.controllers;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.algartelecom.RecargaDispositivos.entities.Client;
-import com.algartelecom.RecargaDispositivos.repositories.ClientRepository;
+import com.algartelecom.RecargaDispositivos.dto.ClientDTO;
+import com.algartelecom.RecargaDispositivos.services.ClientService;
 
 @RestController
 @RequestMapping(value = "/client")
 public class ClientController {
 	
 	@Autowired
-	private ClientRepository repository;
-	@GetMapping
-	public String teste () {
-		Optional<Client> result = repository.findById(1L);
-		Client client = result.get();
-		return client.getName();
+	private ClientService service;
+	
+	@GetMapping(value = "/{id}")
+	public ClientDTO findById (@PathVariable Long id) {
+		return service.findById(id);
 	}
 	
 }
