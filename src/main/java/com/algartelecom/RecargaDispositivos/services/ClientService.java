@@ -29,4 +29,17 @@ public class ClientService {
 		return result.map(x -> new ClientDTO(x));
 	}
 	
+	@Transactional
+	public ClientDTO insert(ClientDTO dto) {
+		
+		Client entity = new Client();
+		entity.setName(dto.getName());
+		entity.setEmail(dto.getEmail());
+		entity.setPhone(dto.getPhone());
+		
+		entity = repository.save(entity);
+		
+		return new ClientDTO(entity);
+	}
+	
 }
