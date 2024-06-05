@@ -2,7 +2,6 @@ package com.algartelecom.RecargaDispositivos.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.algartelecom.RecargaDispositivos.dto.ClientDTO;
 import com.algartelecom.RecargaDispositivos.entities.Client;
 import com.algartelecom.RecargaDispositivos.repositories.ClientRepository;
+import com.algartelecom.RecargaDispositivos.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ClientService {
@@ -21,7 +21,7 @@ public class ClientService {
 	@Transactional(readOnly = true)
 	public ClientDTO findById(Long id) {
 		Client client = repository.findById(id).orElseThrow(
-				() -> new ConfigDataResourceNotFoundException("Recurso não encontrado"));
+				() -> new ResourceNotFoundException("Recurso não encontrado"));
 		return new ClientDTO(client);
 
 	}
